@@ -1,0 +1,22 @@
+History/
+__Previews/
+
+*.ini
+
+*.log
+*.Dat
+*.PrjPCBStructure
+*.PrjPcbStructure
+*.PrjMbdStructure
+Status Report.Txt
+
+# Commented out for LFS
+#BOM/
+#STEP/
+#PDF/
+Gerbers/
+!Gerbers/*.zip
+
+*.htm
+*.html
+*.drc
