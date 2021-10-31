@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>marlab</name>
-	<comment />
+	<name>thermometer</name>
+	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
@@ -19,16 +19,34 @@
 		</buildCommand>
 	</buildSpec>
 	<natures>
+		<nature>com.st.stm32cube.ide.mcu.MCUProjectNature</nature>
 		<nature>org.eclipse.cdt.core.cnature</nature>
-		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
 		<nature>org.eclipse.cdt.managedbuilder.core.ScannerConfigNature</nature>
-		<nature>fr.ac6.mcu.ide.core.MCUProjectNature</nature>
+		<nature>org.eclipse.cdt.core.ccnature</nature>
+		<nature>org.eclipse.cdt.managedbuilder.core.managedBuildNature</nature>
+		<nature>com.st.stm32cube.ide.mcu.MCUTSConvertedProjectNature</nature>
 	</natures>
 	<linkedResources>
 		<link>
-			<name />
-			<type />
-			<location />
+			<name>Lib/CMSIS</name>
+			<type>2</type>
+			<locationURI>copy_PARENT/Driver/CMSIS</locationURI>
+		</link>
+		<link>
+			<name>Lib/FreeRTOS</name>
+			<type>2</type>
+			<locationURI>copy_PARENT/Middleware/FreeRTOS</locationURI>
+		</link>
+		<link>
+			<name>Lib/STM32F4xx_HAL</name>
+			<type>2</type>
+			<locationURI>copy_PARENT/Driver/STM32F4xx_HAL</locationURI>
 		</link>
 	</linkedResources>
+	<variableList>
+		<variable>
+			<name>copy_PARENT</name>
+			<value>$%7BPARENT-3-PROJECT_LOC%7D/Git/stm32</value>
+		</variable>
+	</variableList>
 </projectDescription>
