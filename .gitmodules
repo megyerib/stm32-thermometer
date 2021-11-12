@@ -1,0 +1,3 @@
+[submodule "firmware/stm32f4-lib"]
+	path = firmware/stm32f4-lib
+	url = https://github.com/megyerib/stm32f4-lib-submodule.git
