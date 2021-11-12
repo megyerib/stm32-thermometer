@@ -15,8 +15,6 @@ void CyclicTask(void* p)
 {
 	Periodic* task = (Periodic*) p;
 
-	task->Init();
-
 	while (1)
 	{
 		task->Cyclic();

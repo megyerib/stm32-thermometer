@@ -3,7 +3,7 @@
 class System
 {
 public:
-	static System* GetInstance();
+	static System& GetInstance();
 	void OsStart();
 
 private:

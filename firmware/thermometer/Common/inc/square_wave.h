@@ -2,7 +2,8 @@
 
 typedef struct
 {
+	bool  enable;
 	float frequency;
-	float dutyCycle;
+	float duty_cycle;
 }
-SquareWave;
+square_wave_t;

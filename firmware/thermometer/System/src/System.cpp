@@ -10,11 +10,10 @@ System::System()
 	HAL_InitTick(TICK_INT_PRIORITY);
 }
 
-System* System::GetInstance()
+System& System::GetInstance()
 {
 	static System instance;
-
-	return &instance;
+	return instance;
 }
 
 void System::OsStart()

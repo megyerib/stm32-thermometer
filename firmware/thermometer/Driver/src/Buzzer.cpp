@@ -1,14 +1,14 @@
 #include "Buzzer.h"
 
-Buzzer* Buzzer::GetInstance()
+Buzzer& Buzzer::GetInstance()
 {
 	static Buzzer instance;
-	return &instance;
+	return instance;
 }
 
 // TODO handle invalid inputs
 
-int32_t Buzzer::Write(const SquareWave& data)
+bool Buzzer::Write(const square_wave_t& data)
 {
 	// 1 SET FREQUENCY
 
@@ -21,14 +21,14 @@ int32_t Buzzer::Write(const SquareWave& data)
 
 	CalcTimerRegisters(product, prescaler, period);
 
-	threshold = ((period + 1) * data.dutyCycle) - 1; // TODO overrun!
+	threshold = ((period + 1) * data.duty_cycle) - 1; // TODO overrun!
 
 	// Write registers
 	TIM1->PSC  = prescaler;
 	TIM1->ARR  = period;
 	TIM1->CCR4 = threshold;
 
-	return OUTPUT_WRITE_OK;
+	return false;
 }
 
 void Buzzer::CalcTimerRegisters(uint32_t cntVal, uint16_t& prescaler, uint16_t& period)
@@ -53,7 +53,7 @@ Buzzer::Buzzer()
 	InitTimer();
 	InitGpio();
 
-	HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_4);
+	HAL_TIM_PWM_Start(&htim, TIM_CHANNEL_4);
 	TIM1->CCR4 = 0;
 }
 
@@ -66,31 +66,31 @@ void Buzzer::InitTimer()
 	TIM_OC_InitTypeDef sConfigOC;
 	TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig;
 
-	htim1.Instance = TIM1;
-	htim1.Init.Prescaler = 180-1;
-	htim1.Init.CounterMode = TIM_COUNTERMODE_UP;
-	htim1.Init.Period = 10000-1;
-	htim1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
-	htim1.Init.RepetitionCounter = 0;
-	if (HAL_TIM_Base_Init(&htim1) != HAL_OK)
+	htim.Instance = TIM1;
+	htim.Init.Prescaler = 180-1;
+	htim.Init.CounterMode = TIM_COUNTERMODE_UP;
+	htim.Init.Period = 10000-1;
+	htim.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+	htim.Init.RepetitionCounter = 0;
+	if (HAL_TIM_Base_Init(&htim) != HAL_OK)
 	{
 		//Error_Handler();
 	}
 
 	sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
-	if (HAL_TIM_ConfigClockSource(&htim1, &sClockSourceConfig) != HAL_OK)
+	if (HAL_TIM_ConfigClockSource(&htim, &sClockSourceConfig) != HAL_OK)
 	{
 		//Error_Handler();
 	}
 
-	if (HAL_TIM_PWM_Init(&htim1) != HAL_OK)
+	if (HAL_TIM_PWM_Init(&htim) != HAL_OK)
 	{
 		//Error_Handler();
 	}
 
 	sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
 	sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
-	if (HAL_TIMEx_MasterConfigSynchronization(&htim1, &sMasterConfig) != HAL_OK)
+	if (HAL_TIMEx_MasterConfigSynchronization(&htim, &sMasterConfig) != HAL_OK)
 	{
 		//Error_Handler();
 	}
@@ -101,7 +101,7 @@ void Buzzer::InitTimer()
 	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
 	sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;
 	sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET;
-	if (HAL_TIM_PWM_ConfigChannel(&htim1, &sConfigOC, TIM_CHANNEL_4) != HAL_OK)
+	if (HAL_TIM_PWM_ConfigChannel(&htim, &sConfigOC, TIM_CHANNEL_4) != HAL_OK)
 	{
 		//Error_Handler();
 	}
@@ -113,7 +113,7 @@ void Buzzer::InitTimer()
 	sBreakDeadTimeConfig.BreakState = TIM_BREAK_DISABLE;
 	sBreakDeadTimeConfig.BreakPolarity = TIM_BREAKPOLARITY_HIGH;
 	sBreakDeadTimeConfig.AutomaticOutput = TIM_AUTOMATICOUTPUT_DISABLE;
-	if (HAL_TIMEx_ConfigBreakDeadTime(&htim1, &sBreakDeadTimeConfig) != HAL_OK)
+	if (HAL_TIMEx_ConfigBreakDeadTime(&htim, &sBreakDeadTimeConfig) != HAL_OK)
 	{
 		//Error_Handler();
 	}

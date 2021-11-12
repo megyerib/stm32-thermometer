@@ -4,5 +4,6 @@
 template <typename T>
 class Input
 {
-	int32_t Read(T& data);
+public:
+	virtual bool Read(T& data) = 0;
 };

@@ -1,16 +1,16 @@
 #pragma once
-#include "Output.h"
-#include "squarewave.h"
+#include <output.h>
+#include <square_wave.h>
 #include "stm32f4xx_hal.h"
 
-class Buzzer : public Output<SquareWave>
+class Buzzer : public Output<square_wave_t>
 {
 public:
-	static Buzzer* GetInstance();
-	virtual int32_t Write(const SquareWave& data) override;
+	static Buzzer& GetInstance();
+	virtual bool Write(const square_wave_t& data) override;
 
 private:
-	TIM_HandleTypeDef htim1;
+	TIM_HandleTypeDef htim;
 
 	Buzzer();
 	void InitTimer();
