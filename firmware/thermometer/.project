@@ -30,17 +30,17 @@
 		<link>
 			<name>Lib/CMSIS</name>
 			<type>2</type>
-			<locationURI>copy_PARENT/Driver/CMSIS</locationURI>
+			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/stm32f4-lib/CMSIS</locationURI>
 		</link>
 		<link>
 			<name>Lib/FreeRTOS</name>
 			<type>2</type>
-			<locationURI>copy_PARENT/Middleware/FreeRTOS</locationURI>
+			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/stm32f4-lib/FreeRTOS</locationURI>
 		</link>
 		<link>
 			<name>Lib/STM32F4xx_HAL</name>
 			<type>2</type>
-			<locationURI>copy_PARENT/Driver/STM32F4xx_HAL</locationURI>
+			<locationURI>$%7BPARENT-1-PROJECT_LOC%7D/stm32f4-lib/STM32F4xx_HAL</locationURI>
 		</link>
 	</linkedResources>
 	<variableList>
