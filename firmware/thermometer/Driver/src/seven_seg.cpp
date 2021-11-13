@@ -1,4 +1,5 @@
 #include "seven_seg.h"
+#include "gpio.h"
 #include "stm32f4xx_hal.h"
 
 enum display_gpio_t {
@@ -6,11 +7,6 @@ enum display_gpio_t {
 	COM0, COM1, COM2,
 	CLK, EN,
 	DISPLAY_GPIO_NUM
-};
-
-struct gpio_t {
-	GPIO_TypeDef* port;
-	uint16_t      pin;
 };
 
 const gpio_t display_gpio[DISPLAY_GPIO_NUM] = {
@@ -36,14 +32,6 @@ const gpio_t display_com_gpio[3] = {
 	[1] = display_gpio[COM1],
 	[2] = display_gpio[COM2],
 };
-
-static void gpio_write(const gpio_t& gpio, bool value) {
-	HAL_GPIO_WritePin(
-		gpio.port,
-		gpio.pin,
-		value ? GPIO_PIN_SET : GPIO_PIN_RESET
-	);
-}
 
 SevenSeg::SevenSeg() : Periodic(1)
 {
