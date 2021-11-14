@@ -14,6 +14,7 @@ public:
 
 private:
 	bool valid = false;
+	bool has_valid_sample = false;
 	float temp = 0;
 
 	Temperature();
