@@ -10,8 +10,8 @@ ClientConnection::ClientConnection(Transmitter& transmitter) : transmitter(trans
 
 bool ClientConnection::Write(const app_state_t& state)
 {
-	int temp_int = state.temperature * 10.0 + 0.001;
-	int thr_int  = state.threshold * 10.0 + 0.001;
+	int temp_int = state.temperature * 10.0 + 0.5;
+	int thr_int  = state.threshold * 10.0 + 0.5;
 
 	static char buf[BUF_SIZE]; // TODO make own buffer for UART
 
