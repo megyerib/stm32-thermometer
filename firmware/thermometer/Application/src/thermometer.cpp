@@ -3,6 +3,7 @@
 #include "temperature.h"
 #include "button.h"
 #include "alarm_sound.h"
+#include "nucleo_uart.h"
 
 const uint32_t PERIOD_ms = 20;
 const uint32_t DOWNHOLD_THRESHOLD_ms = 500; // Hold down button for this much ms to start increasing threshold
@@ -12,7 +13,8 @@ const float DEFAULT_ALERT_THRESHOLD = 30.0f;
 
 Thermometer::Thermometer() : Periodic(PERIOD_ms),
 		                     timer_left(PERIOD_ms, DOWNHOLD_THRESHOLD_ms, THR_INCR_PERIOD_ms),
-							 timer_right(PERIOD_ms, DOWNHOLD_THRESHOLD_ms, THR_INCR_PERIOD_ms)
+							 timer_right(PERIOD_ms, DOWNHOLD_THRESHOLD_ms, THR_INCR_PERIOD_ms),
+							 client_conn(NucleoUart::GetInstance())
 {
 	alert_temp_thr = DEFAULT_ALERT_THRESHOLD;
 	temp_shwitchback_time = 0;
@@ -55,4 +57,11 @@ void Thermometer::Cyclic()
 
 	bool alert = temperature > (alert_temp_thr - 0.001f);
 	AlarmSound::GetInstance().Write(alert);
+
+	app_state_t state = {
+		.temperature = temperature,
+		.threshold   = alert_temp_thr
+	};
+
+	client_conn.Write(state);
 }
