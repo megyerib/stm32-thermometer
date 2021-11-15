@@ -29,8 +29,12 @@ namespace homero
 
         private void getTemp(object sender, System.IO.Ports.SerialDataReceivedEventArgs e)
         {
-            receivedString = serialPort1.ReadLine();
-            this.Invoke(new EventHandler(DisplayText));
+            try
+            {
+                receivedString = serialPort1.ReadLine();
+                this.BeginInvoke(new EventHandler(DisplayText));
+            }
+            finally { }
         }
 
         private void DisplayText(object sender, EventArgs e)
