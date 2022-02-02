@@ -71,7 +71,7 @@ bool SevenSeg::Write(const digit_t (&input)[3])
 	return false;
 }
 
-void SevenSeg::Cyclic()
+void SevenSeg::PeriodicFunction()
 {
 	static int activeDigit = 0;
 

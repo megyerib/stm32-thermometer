@@ -14,7 +14,7 @@ bool Blinker::Write(const bool& on)
 	return false;
 }
 
-void Blinker::Cyclic()
+void Blinker::PeriodicFunction()
 {
 	if (enabled) {
 		state = !state;

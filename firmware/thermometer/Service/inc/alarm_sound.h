@@ -7,7 +7,7 @@ class AlarmSound : public Periodic,
 {
 public:
 	static AlarmSound& GetInstance();
-	virtual void Cyclic() override;
+	virtual void PeriodicFunction() override;
 	virtual bool Write(const bool& on) override;
 
 private:

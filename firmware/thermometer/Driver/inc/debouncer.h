@@ -14,16 +14,16 @@ public:
 	bool GetValue(uint16_t mask);
 	bool GetRisingEdge(uint16_t mask);
 	void ClearRisingEdges();
-	virtual void Cyclic() override;
+	virtual void PeriodicFunction() override;
 
 private:
 	GPIO_TypeDef* gpio_port;
 
-	uint32_t filteredValue = 0x00000000; // Bitfield
-	uint32_t risingEdges   = 0x00000000; // Bitfield
+	uint16_t filteredValue = 0x00000000; // Bitfield
+	uint16_t risingEdges   = 0x00000000; // Bitfield
 
-	uint32_t meas[DEBOUNCING_WINDOW_SIZE] = {0};
-	uint32_t iMeas = 0;
+	uint16_t meas[DEBOUNCING_WINDOW_SIZE] = {0};
+	uint16_t i_meas = 0; // Measurement index
 
 	Debouncer();
 };

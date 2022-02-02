@@ -1,16 +1,12 @@
 #pragma once
+
 #include <cstdint>
 
 class Periodic
 {
 public:
-	uint32_t GetPeriod(){return period;}
+	const uint32_t period_ms;
 
-    virtual void Cyclic() = 0;
-
-protected:
-	Periodic(uint32_t period_ms);
-
-private:
-	uint32_t period;
+	Periodic(uint32_t period_ms) : period_ms(period_ms) {};
+    virtual void PeriodicFunction() = 0;
 };

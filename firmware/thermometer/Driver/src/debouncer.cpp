@@ -10,26 +10,26 @@ Debouncer& Debouncer::GetInstance()
 
 bool Debouncer::GetValue(uint16_t mask)
 {
-	return (filteredValue & (uint32_t)mask) != 0;
+	return (filteredValue & mask) != 0;
 }
 
 bool Debouncer::GetRisingEdge(uint16_t mask)
 {
-	bool ret = ((risingEdges & (uint32_t)mask) != 0);
-	risingEdges &= (uint32_t)(~mask); // Clear edge
+	bool ret = (risingEdges & mask) != 0;
+	risingEdges &= ~mask; // Clear edge
 	return ret;
 }
 
-void Debouncer::Cyclic()
+void Debouncer::PeriodicFunction()
 {
 	uint32_t prevFiltered = filteredValue;
 
 	// Set index
-	iMeas++;
-	iMeas %= DEBOUNCING_WINDOW_SIZE;
+	i_meas++;
+	i_meas %= DEBOUNCING_WINDOW_SIZE;
 
 	// Read
-	meas[iMeas] = gpio_port->IDR;
+	meas[i_meas] = gpio_port->IDR;
 
 	// Filter
 	uint32_t zeros = 0x00000000;

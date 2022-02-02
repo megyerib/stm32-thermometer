@@ -7,15 +7,14 @@ class Temperature : public Input<float>,
                     public Periodic
 {
 public:
-	static Temperature& GetInstance();
+	Temperature(Input<float>& sensor);
 
 	virtual bool Read(float& temp) override;
-	virtual void Cyclic() override;
+	virtual void PeriodicFunction() override;
 
 private:
+	Input<float>& sensor;
 	bool valid = false;
 	bool has_valid_sample = false;
-	float temp = 0;
-
-	Temperature();
+	float temperature = 0;
 };

@@ -14,5 +14,5 @@ private:
 	bool state = false;
 	bool enabled = false;
 
-	virtual void Cyclic() override;
+	virtual void PeriodicFunction() override;
 };

@@ -1,10 +1,10 @@
 #include "temperature.h"
-#include "tc77.h"
 
-const uint32_t AVG_WINDOW_SIZE = 10;
-const float NSW = 1.0 / AVG_WINDOW_SIZE; // New sample weight
+const uint32_t WINDOW_SIZE = 10; // Avveraging window size
+const float NSW = 1.0 / WINDOW_SIZE; // New sample weight
 
-Temperature::Temperature() : Periodic(100)
+Temperature::Temperature(Input<float>& sensor) : Periodic(100),
+                                                 sensor(sensor)
 {
 
 }
@@ -17,22 +17,21 @@ Temperature& Temperature::GetInstance()
 
 bool Temperature::Read(float& temp)
 {
-	temp = this->temp;
+	temp = this->temperature;
 	return this->valid;
 }
 
-void Temperature::Cyclic()
+void Temperature::PeriodicFunction()
 {
-	TC77& thermometer = TC77::GetInstance();
 	float current_temp;
-	valid = !thermometer.Read(current_temp);
+	valid = !sensor.Read(current_temp);
 
 	if(valid) {
 		if(has_valid_sample) {
 			// Exponential moving average
-			temp = (1 - NSW) * temp + NSW * current_temp;
+			temperature = (1 - NSW) * temperature + NSW * current_temp;
 		} else {
-			temp = current_temp;
+			temperature = current_temp;
 			has_valid_sample = true;
 		}
 	}

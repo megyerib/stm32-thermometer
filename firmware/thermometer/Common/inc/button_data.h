@@ -2,12 +2,12 @@
 
 #include "gpio.h"
 
-enum button_t
+typedef enum
 {
 	LEFT,
 	RIGHT,
 	BUTTON_NUM
-};
+} button_t;
 
 const gpio_t button_gpio[BUTTON_NUM] = {
 	[LEFT]  = {GPIOC, GPIO_PIN_0},

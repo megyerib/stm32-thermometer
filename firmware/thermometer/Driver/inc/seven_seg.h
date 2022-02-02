@@ -13,7 +13,7 @@ public:
 	static SevenSeg& GetInstance();
 	virtual bool Write(const digit_t (&input)[DIGIT_NUM]) override;
 
-	virtual void Cyclic() override;
+	virtual void PeriodicFunction() override;
 
 private:
 	SevenSeg();

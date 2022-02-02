@@ -1,6 +1,6 @@
 #include <alarm_sound.h>
-#include <square_wave.h>
 #include <buzzer.h>
+#include <square_wave.h>
 
 const square_wave_t wave_on  = {true, 440.0f, 0.5f};
 const square_wave_t wave_off = {false, 440.0f, 0.0f};
@@ -29,7 +29,7 @@ bool AlarmSound::Write(const bool& on)
 	return buzzer.Write(state ? wave_on : wave_off);
 }
 
-void AlarmSound::Cyclic()
+void AlarmSound::PeriodicFunction()
 {
 	if(enable) {
 		state = !state;
