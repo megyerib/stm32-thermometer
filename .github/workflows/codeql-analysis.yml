@@ -52,13 +52,13 @@ jobs:
 
     # Autobuild attempts to build any compiled languages  (C/C++, C#, or Java).
     # If this step fails, then you should remove it and run the build manually (see below)
-    - if: matrix.language == 'csharp'
-      name: Autobuild
+    - name: Build C# with Autobuild
+      if: ${{ matrix.language }} == 'csharp'
       uses: github/codeql-action/autobuild@v2
         
     # https://github.com/marketplace/actions/build-stm32cubeide-project
-    - if: matrix.language == 'cpp'
-      name: Build STM32CubeIde project
+    - name: Build STM32CubeIde project
+      if: ${{ matrix.language }} == 'cpp'
       uses: xanderhendriks/action-build-stm32cubeide@v4.0
       with:
         project-path: 'firmware'
